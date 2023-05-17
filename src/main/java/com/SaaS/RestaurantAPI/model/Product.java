@@ -3,10 +3,7 @@ package com.SaaS.RestaurantAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +19,7 @@ import java.sql.Date;
 @Setter
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private int id;
 
@@ -33,6 +31,9 @@ public class Product {
 
     @Column(name = "quantity")
     private long quantity;
+
+    @Column(name="package_type")
+    private Package_type packageType;
 
     @Column(name = "unitary_price")
     private long unitary_price;
@@ -69,6 +70,10 @@ public class Product {
         return unitary_price;
     }
 
+    public Package_type getPackageType() {
+        return packageType;
+    }
+
     public boolean isIVA() {
         return IVA;
     }
@@ -83,7 +88,7 @@ public class Product {
 
     public double getTotal() {
         if(this.isIVA()){
-            this.total=this.unitary_price*0.19;
+            this.total=this.unitary_price+(this.unitary_price*0.19);
         }
         else{
             this.total=this.unitary_price;

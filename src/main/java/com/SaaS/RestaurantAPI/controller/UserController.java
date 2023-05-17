@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/user")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/users")
+@CrossOrigin(origins= {"http://localhost:4200/"}, maxAge = 4800, allowCredentials = "false" )
 public class UserController {
     @Autowired
     UserService userService;
